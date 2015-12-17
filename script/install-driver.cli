@@ -1,0 +1,14 @@
+# Connect to Wildfly instance
+connect localhost:${wildfly.management.port}
+
+# add driver jar
+module add \
+    --name=${wildfly.config.driver-name} \
+    --resources=${wildfly.config.driver-jar-path} \
+    --dependencies=javax.api,javax.transaction.api
+
+# config standalone.xml
+/subsystem=datasources/jdbc-driver=${wildfly.config.driver-name}: \
+    add( \
+        driver-name="${wildfly.config.driver-name}", \
+        driver-module-name="${wildfly.config.driver-name}")

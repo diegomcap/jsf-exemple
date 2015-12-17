@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!-- SEGURANÇA -->
+    <changeSet author="create_table" id="1">
+        <createTable tableName="tb_sec_user">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="login" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="email" type="varchar(255)" />
+            <column name="function" type="varchar(255)" />
+            <column name="picture" type="blob" />
+            <column name="picture_small" type="blob" />
+        </createTable>
+    </changeSet>
+
+    <changeSet author="create_table" id="2">
+        <createTable tableName="tb_sec_role">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="create_table" id="3">
+        <createTable tableName="tb_sec_user_role">
+            <column name="user_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="role_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="create_table" id="4">
+        <createTable tableName="tb_sec_permission">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="create_table" id="5">
+        <createTable tableName="tb_sec_permission_role">
+            <column name="permission_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="role_id" type="int">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="initial_data_security" id="1">
+        <!-- usuário: admin -->
+        <!-- senha: 123 -->
+        <insert tableName="tb_sec_user">
+            <column name="login" value="admin" />
+            <column name="password" value="3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2" />
+            <column name="name" value="Administrador do Sistema" />
+            <column name="function" value="Administrador" />
+        </insert>
+
+        <insert tableName="tb_sec_role">
+            <column name="name" value="PAPEL_USUARIO" />
+            <column name="description" value="Papel principal para ter acesso ao sistema." />
+        </insert>
+
+        <insert tableName="tb_sec_permission">
+            <column name="name" value="MENU_PRINCIPAL" />
+            <column name="description" value="Acesso ao menu principal do sistema." />
+        </insert>
+    </changeSet>
+
+    <changeSet author="initial_data_security" id="2">
+        <sql>
+            insert into tb_sec_user_role (user_id,role_id)
+            select u.id,r.id
+            from tb_sec_user u, tb_sec_role r
+            where u.login like 'admin' and r.name like
+            'PAPEL_USUARIO';
+        </sql>
+
+        <sql>
+            insert into tb_sec_permission_role (permission_id,role_id)
+            SELECT perm.id,r.id
+            FROM tb_sec_permission perm, tb_sec_role r
+            where perm.name =
+            'MENU_PRINCIPAL'
+            and r.name = 'PAPEL_USUARIO'
+        </sql>
+    </changeSet>
+    <!-- FIM SEGURANÇA -->
+
+
+    <changeSet author="create_table" id="6">
+        <createTable tableName="agenda">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="nome" type="varchar(255)" />
+            <column name="telefone" type="varchar(255)" />
+            <column name="dataCadastro" type="TIMESTAMP" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

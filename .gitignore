@@ -1,0 +1,7 @@
+*.classpath
+**/.settings/
+*.project
+**/target/
+*.tern-project
+**/.faces-custom.xml.jsfdia
+**/build/

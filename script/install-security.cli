@@ -1,0 +1,9 @@
+# Connect to Wildfly instance
+connect localhost:${wildfly.management.port}
+
+/subsystem=infinispan/cache-container=security:add
+/subsystem=infinispan/cache-container=security/:write-attribute(name=default-cache,value=auth-cache)
+
+/subsystem=security/security-domain=${wildfly.config.jaas-name}:add
+/subsystem=security/security-domain=${wildfly.config.jaas-name}:write-attribute(name=cache-type,value=infinispan)
+/subsystem=security/security-domain=${wildfly.config.jaas-name}/authentication=classic:add(login-modules=[{"code"=>"Database", "flag"=>"required",, "module-options"=>["dsJndiName"=>"java:jboss/datasources/${wildfly.config.ds-name}", "principalsQuery"=>"select password from tb_sec_user where login=?", "rolesQuery"=>"select r.name, 'Roles' from tb_sec_user u, tb_sec_role r, tb_sec_user_role ur where u.id = ur.user_id AND r.id = ur.role_id AND u.login = ?", "hashAlgorithm"=>"SHA-512", "hashEncoding"=>"hex"]}])

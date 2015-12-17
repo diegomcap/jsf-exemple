@@ -1,0 +1,19 @@
+# Connect to Wildfly instance
+connect localhost:${wildfly.management.port}
+
+# Create Datasource
+batch
+xa-data-source add \
+      --name=${wildfly.config.ds-name} \
+      --driver-name=${wildfly.config.driver-name} \
+      --jndi-name=java:jboss/datasources/${wildfly.config.ds-name} \
+      --xa-datasource-class=${jdbc.config.xa-driver-class}  \
+	  --max-pool-size=10  \
+	  --min-pool-size=5 \
+      --user-name=${jdbc.config.user} \
+      --password=${jdbc.config.password}
+/subsystem=datasources/xa-data-source="${wildfly.config.ds-name}"/xa-datasource-properties=ServerName:add(value="${jdbc.config.server}")
+/subsystem=datasources/xa-data-source="${wildfly.config.ds-name}"/xa-datasource-properties=User:add(value="${jdbc.config.user}")
+/subsystem=datasources/xa-data-source="${wildfly.config.ds-name}"/xa-datasource-properties=Password:add(value="${jdbc.config.password}")
+/subsystem=datasources/xa-data-source="${wildfly.config.ds-name}"/xa-datasource-properties=DatabaseName:add(value="${jdbc.config.database-name}")
+run-batch

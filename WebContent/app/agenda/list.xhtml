@@ -1,0 +1,69 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="regiaoPrincipal">
+		<h:form id="formAgendaList">
+			<p:menubar>
+				<p:menuitem
+					value="Novo"
+					icon="ui-icon-circle-plus"
+					action="agendaEdit" />
+			</p:menubar>
+
+			<p:spacer />
+
+			<p:dataTable
+				var="ag"
+				rows="10"
+				paginator="true"
+				paginatorPosition="bottom"
+				value="#{agendaMBeanList.agendaList}">
+
+				<p:column headerText="Id">
+					<h:outputText value="#{ag.id}" />
+				</p:column>
+
+				<p:column headerText="Nome">
+					<h:outputText value="#{ag.nome}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{ag.telefone}" />
+				</p:column>
+
+				<p:column headerText="Data Cadastro">
+					<h:outputText value="#{ag.dataCadastro}" />
+				</p:column>
+
+				<p:column
+					style="width:60px;text-align: center"
+					headerText="Ações">
+					<p:commandButton
+						update="formAgendaList"
+						icon="ui-icon-note"
+						action="#{agendaMBeanList.edit}"
+						title="Edit">
+						<f:setPropertyActionListener
+							value="#{ag}"
+							target="#{agendaMBeanList.agendaSelecionada}" />
+					</p:commandButton>
+
+					<p:commandButton
+						update="formAgendaList"
+						icon="ui-icon-trash"
+						action="#{agendaMBeanList.delete}"
+						title="Delete">
+						<f:setPropertyActionListener
+							value="#{ag}"
+							target="#{agendaMBeanList.agendaSelecionada}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

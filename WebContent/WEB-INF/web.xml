@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+    <display-name>jsf-example</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>principal.jsf</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <param-name>javax.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
+        <param-value>/WEB-INF/resources</param-value>
+    </context-param>
+
+    <security-constraint>
+        <display-name>protected-pages</display-name>
+
+        <web-resource-collection>
+            <web-resource-name>protected-pages</web-resource-name>
+            <url-pattern>/app/*</url-pattern>
+        </web-resource-collection>
+
+        <auth-constraint>
+            <role-name>PAPEL_USUARIO</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>example-jaas</realm-name>
+        <form-login-config>
+            <form-login-page>/publico/login.html</form-login-page>
+            <form-error-page>/publico/login.html</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <security-role>
+        <role-name>PAPEL_USUARIO</role-name>
+    </security-role>
+</web-app>

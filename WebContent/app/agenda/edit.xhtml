@@ -1,0 +1,34 @@
+<ui:composition
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="regiaoPrincipal">
+		<h:form id="formAgendaEdit">
+			<p:panel header="Edição">
+				<h:panelGrid
+					columns="2"
+					cellpadding="10">
+
+					<p:outputLabel value="Nome" />
+					<p:inputText value="#{agendaMBeanEdit.agenda.nome}" />
+
+					<p:outputLabel value="Telefone" />
+					<p:inputText value="#{agendaMBeanEdit.agenda.telefone}" />
+
+					<f:facet name="footer">
+						<p:commandButton
+							value="Salvar"
+							action="#{agendaMBeanEdit.salvar}" />
+						<p:commandButton
+							value="Voltar"
+							action="#{agendaMBeanEdit.voltar}" />
+					</f:facet>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

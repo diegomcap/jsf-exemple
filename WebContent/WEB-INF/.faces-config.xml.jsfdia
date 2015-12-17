@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="agendaList::#app#agenda#list.jsf"
+    NAME="output" PATH="/app/agenda/list.jsf"
+    TARGET="rules:#app#agenda#list.jsf" TITLE="agendaList" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#app#agenda#list.jsf"
+  PATH="/app/agenda/list.jsf" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:1" PATH="*" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:1" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="agendaEdit::#app#agenda#edit.jsf"
+    NAME="output" PATH="/app/agenda/edit.jsf"
+    TARGET="rules:#app#agenda#edit.jsf" TITLE="agendaEdit" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#app#agenda#edit.jsf"
+  PATH="/app/agenda/edit.jsf" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>
