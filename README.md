@@ -1,7 +1,7 @@
 # jsf-example
 Projeto utilizando as tecnologias JSF + JPA + CDI.
 
-### Configurando ambiente
+### Configurando ambiente - Wildfy
 
 Projeto testado com o servidor de aplicação Wildfly 9.0.2.Final
 
@@ -10,7 +10,7 @@ Para configurar o servidor rode o comando abaixo que irá instalar o driver do b
 $ mvn install -Psetup
 ```
 
-### Configurando o ambiente 
+### Configurando o ambiente - Banco de dados
 
 Projeto testado com o servidor de aplicação Mysql 5.1.38 instalado localmente.
 
